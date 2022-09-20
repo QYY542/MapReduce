@@ -104,8 +104,6 @@ public class HBaseUtilForInvertedIndex {
         deleteData(tableName, delete);
     }
 
-
-
     private void showData(Result result) {
 
         while (result.advance()) {
