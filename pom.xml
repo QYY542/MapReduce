@@ -58,7 +58,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib</classpathPrefix>
-                            <mainClass>cn.mapreduce.InvertedIndex_v1</mainClass>
+                            <mainClass>cn.mapreduce.InvertedIndex_v2</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

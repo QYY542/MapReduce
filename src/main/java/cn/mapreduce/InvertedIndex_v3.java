@@ -24,9 +24,9 @@ public class InvertedIndex_v3 extends Configured implements Tool {
         job.setJarByClass(InvertedIndex_v3.class);
 
         //设置Map Combine Reduce 处理类
-        job.setMapperClass(Map.class);
-        job.setCombinerClass(Combine.class);
-        job.setReducerClass(Reduce.class);
+        job.setMapperClass(Map_v1.class);
+        job.setCombinerClass(Combine_v1.class);
+        job.setReducerClass(Reduce_v1.class);
 
         job.setMapOutputKeyClass(Text.class);
         job.setMapOutputValueClass(Text.class);

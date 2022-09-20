@@ -1,21 +1,10 @@
 package cn.mapreduce;
 
-import java.util.StringTokenizer;
-
-import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapreduce.Job;
-import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
-import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
-import org.apache.hadoop.mapreduce.lib.input.FileSplit;
-import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
-import org.apache.hadoop.util.GenericOptionsParser;
 
-public class Reduce extends Reducer<Text, Text, Text, Text> {
-    private static StringBuilder sub = new StringBuilder(256);
+public class Reduce_v1 extends Reducer<Text, Text, Text, Text> {
+    private static StringBuilder sub = new StringBuilder();
     private static Text word = new Text();
     private static Text index = new Text();
 
@@ -26,10 +15,13 @@ public class Reduce extends Reducer<Text, Text, Text, Text> {
         int count = 0;
         for (Text v : values) {
             count++;
+            //position填入
             sub.append(v.toString());
         }
         word.set(split[0]);
         index.set(split[1] + ":" + count + ":" + sub.toString());
+        //<word,(fileName:count:position)>
+        //但是没有将word的每一个(fileName:count:position)合并，需要job2实现
         context.write(word, index);
         sub.delete(0, sub.length());
     }
