@@ -14,19 +14,23 @@ import org.apache.hadoop.mapreduce.lib.input.FileSplit;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.GenericOptionsParser;
 
-class Reduce extends Reducer<Text, Text, Text, Text> {
+public class Reduce extends Reducer<Text, Text, Text, Text> {
     private static StringBuilder sub = new StringBuilder(256);
+    private static Text word = new Text();
     private static Text index = new Text();
 
-    protected void reduce(Text word, Iterable<Text> values, Context context)
+    @Override
+    protected void reduce(Text key, Iterable<Text> values, Context context)
             throws java.io.IOException, InterruptedException {
+        String[] split = key.toString().split(":");
+        int count = 0;
         for (Text v : values) {
-            sub.append(v.toString()).append(";");
+            count++;
+            sub.append(v.toString());
         }
-        index.set(sub.toString());
+        word.set(split[0]);
+        index.set(split[1] + ":" + count + ":" + sub.toString());
         context.write(word, index);
         sub.delete(0, sub.length());
     }
-
-    ;
 }
