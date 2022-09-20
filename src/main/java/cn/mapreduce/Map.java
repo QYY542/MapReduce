@@ -31,15 +31,15 @@ public class Map extends Mapper<LongWritable, Text, Text, Text> {
         String fileName = ((FileSplit) context.getInputSplit()).getPath().getName();
 //            StringTokenizer 是用来把字符串截取成一个个标记或单词的
         StringTokenizer st = new StringTokenizer(value.toString());
-//        st.nextToken();
-//        one.set("(" + key.toString() + "," + st.nextToken() + ")");
+
         String num = st.nextToken();
         int i = 0;
         while (st.hasMoreTokens()) {
             i++;
-            one.set("(" + i + "," + num + ")");
-            word.set(st.nextToken() + ":" + fileName);
+            String position = "(" + i + "," + num + ")";
+            word.set(st.nextToken() + ":" + fileName + ":" + position);
             context.write(word, one);
         }
     }
+
 }
