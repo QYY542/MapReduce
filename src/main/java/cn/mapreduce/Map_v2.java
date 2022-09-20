@@ -14,15 +14,14 @@ public class Map_v2 extends Mapper<LongWritable, Text, Text, Text> {
 
     protected void map(LongWritable key, Text value, Context context)
             throws java.io.IOException, InterruptedException {
-//          获取当前Split下的文件名称
-        String fileName = ((FileSplit) context.getInputSplit()).getPath().getName();
-//            StringTokenizer 是用来把字符串截取成一个个标记或单词的
         StringTokenizer st = new StringTokenizer(value.toString());
-//        st.nextToken();
-        one.set(st.nextToken());
-        while (st.hasMoreTokens()) {
-            word.set(st.nextToken() + ":" + fileName);
-            context.write(word, one);
+        if (st.hasMoreTokens()) {
+            word.set(st.nextToken());
         }
+        if (st.hasMoreTokens()) {
+            one.set(st.nextToken());
+        }
+
+        context.write(word, one);
     }
 }

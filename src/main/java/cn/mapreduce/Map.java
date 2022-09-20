@@ -36,7 +36,7 @@ public class Map extends Mapper<LongWritable, Text, Text, Text> {
         int i = 0;
         while (st.hasMoreTokens()) {
             i++;
-            String position = "(" + i + "," + num + ")";
+            String position = "(" + num + "," + i + ")";
             word.set(st.nextToken() + ":" + fileName + ":" + position);
             context.write(word, one);
         }
