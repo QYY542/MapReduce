@@ -21,7 +21,7 @@ public class Map_v2 extends Mapper<LongWritable, Text, Text, Text> {
         if (st.hasMoreTokens()) {
             one.set(st.nextToken());
         }
-
+        //<word,(fileName:count:position)>
         context.write(word, one);
     }
 }

@@ -15,10 +15,12 @@ public class Reduce_v2 extends Reducer<Text, Text, Text, Text> {
     protected void reduce(Text key, Iterable<Text> values, Context context)
             throws java.io.IOException, InterruptedException {
         for (Text value : values) {
+            //index填入
             sub.append(value).append(";");
         }
         word.set(key);
         index.set(sub.toString());
+        //<word,(fileName_1:count_1:position_1);(fileName_2:count_2:position_2)>
         context.write(word, index);
         sub.delete(0, sub.length());
     }
