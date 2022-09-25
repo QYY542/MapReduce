@@ -17,8 +17,13 @@ public class Reduce_v2 extends TableReducer<Text, Text, ImmutableBytesWritable> 
     @Override
     protected void reduce(Text key, Iterable<Text> values, Context context)
             throws java.io.IOException, InterruptedException {
+        long file_count = 0;
+        long total_count = 0;
         for (Text value : values) {
             //index填入
+            file_count += 1;
+            String[] splits = value.toString().split(":");
+            total_count += Long.parseLong(splits[1]);
             sub.append(value).append(";");
         }
         word.set(key);
@@ -26,9 +31,11 @@ public class Reduce_v2 extends TableReducer<Text, Text, ImmutableBytesWritable> 
         //<word,(fileName_1:count_1:position_1);(fileName_2:count_2:position_2)>
 //        context.write(word, index);
         Put put = new Put(key.toString().getBytes());
-        put.add("items".getBytes(), "filelist".getBytes(), index.getBytes());
+        put.addColumn("items".getBytes(), "item".getBytes(), index.getBytes());
+        put.addColumn("counts".getBytes(), "file_count".getBytes(), String.valueOf(file_count).getBytes());
+        put.addColumn("counts".getBytes(), "total_count".getBytes(), String.valueOf(total_count).getBytes());
         sub.delete(0, sub.length());
-        context.write(null, put);
+        context.write(new ImmutableBytesWritable(Bytes.toBytes(key.toString())), put);
 
     }
 }

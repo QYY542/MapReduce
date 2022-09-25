@@ -28,6 +28,7 @@ public class InvertedIndex_v3 extends Configured implements Tool {
     @Override
     public int run(String[] args) throws Exception {
         //job1的配置
+        args = new String[]{"/hxh/bit/input","/hxh/bit/output", "/hxh/bit/finaloutput"};
         Job job1 = Job.getInstance(getConf(), "Job1");
         job1.setJarByClass(InvertedIndex_v2.class);
         //-job1的Mapper、Combiner、Reducer
