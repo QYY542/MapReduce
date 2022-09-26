@@ -21,7 +21,7 @@ public class InvertedIndex_v3 extends Configured implements Tool {
     public static void main(String[] args) throws Exception {
         Configuration conf = new Configuration();
         conf.set("hbase.zookeeper.quorum", "node01,node02,node03");
-        int status = ToolRunner.run(conf, new InvertedIndex_v2(), args);
+        int status = ToolRunner.run(conf, new InvertedIndex_v3(), args);
         System.exit(status);
     }
 
@@ -30,7 +30,7 @@ public class InvertedIndex_v3 extends Configured implements Tool {
         //job1的配置
         args = new String[]{"/hxh/bit/input","/hxh/bit/output", "/hxh/bit/finaloutput"};
         Job job1 = Job.getInstance(getConf(), "Job1");
-        job1.setJarByClass(InvertedIndex_v2.class);
+        job1.setJarByClass(InvertedIndex_v3.class);
         //-job1的Mapper、Combiner、Reducer
         job1.setMapperClass(Map_v1.class);
         job1.setCombinerClass(Combine_v1.class);
@@ -59,7 +59,7 @@ public class InvertedIndex_v3 extends Configured implements Tool {
         if (job1.waitForCompletion(true)) {
             //job2的配置
             Job job2 = Job.getInstance(getConf(), "Job2");
-            job2.setJarByClass(InvertedIndex_v2.class);
+            job2.setJarByClass(InvertedIndex_v3.class);
             //-job2的Mapper、Reducer
             job2.setMapperClass(Map_v2.class);
             job2.setReducerClass(Reduce_v2.class);

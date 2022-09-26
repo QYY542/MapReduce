@@ -5,14 +5,12 @@ import org.apache.hadoop.hbase.io.ImmutableBytesWritable;
 import org.apache.hadoop.hbase.mapreduce.TableReducer;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapreduce.Reducer;
 
-import java.nio.charset.StandardCharsets;
 
 public class Reduce_v2 extends TableReducer<Text, Text, ImmutableBytesWritable> {
-    private static StringBuilder sub = new StringBuilder();
-    private static Text word = new Text();
-    private static Text index = new Text();
+    private static final StringBuilder sub = new StringBuilder();
+    private static final Text word = new Text();
+    private static final Text index = new Text();
 
     @Override
     protected void reduce(Text key, Iterable<Text> values, Context context)
