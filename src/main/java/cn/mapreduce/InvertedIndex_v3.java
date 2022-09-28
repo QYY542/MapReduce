@@ -20,7 +20,8 @@ import org.apache.hadoop.util.ToolRunner;
 public class InvertedIndex_v3 extends Configured implements Tool {
     public static void main(String[] args) throws Exception {
         Configuration conf = new Configuration();
-        conf.set("hbase.zookeeper.quorum", "node01,node02,node03");
+        conf.set("hbase.zookeeper.quorum", "node1,node2,node3");
+        new HbaseUtils(conf).createTable("invertedindex");
         int status = ToolRunner.run(conf, new InvertedIndex_v3(), args);
         System.exit(status);
     }
