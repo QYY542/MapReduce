@@ -18,6 +18,7 @@ public class Reduce_v2 extends TableReducer<Text, Text, ImmutableBytesWritable> 
             throws java.io.IOException, InterruptedException {
         long file_count = 0;
         long total_count = 0;
+        long txt_num = 0;
         for (Text value : values) {
             //index填入
             file_count += 1;
