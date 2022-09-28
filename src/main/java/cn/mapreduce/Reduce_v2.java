@@ -35,7 +35,7 @@ public class Reduce_v2 extends TableReducer<Text, Text, ImmutableBytesWritable> 
         put.addColumn("counts".getBytes(), "file_count".getBytes(), String.valueOf(file_count).getBytes());
         put.addColumn("counts".getBytes(), "total_count".getBytes(), String.valueOf(total_count).getBytes());
         sub.delete(0, sub.length());
-        context.write(new ImmutableBytesWritable(Bytes.toBytes(key.toString())), put);
+        context.write(null, put);
 
     }
 }
