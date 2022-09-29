@@ -37,7 +37,7 @@ public class InvertedIndex_v1 {
             fs.delete(new Path(args[1]), true);
         }
         job1.setMaxMapAttempts(4);
-
+        job1.setNumReduceTasks(10);
         /*
          * job1的输出路径是job2的输入路径
          * 判断job1结束的返回状态，成功结束就执行job2
@@ -64,6 +64,7 @@ public class InvertedIndex_v1 {
                 fs.delete(new Path(args[2]), true);
             }
             job2.setMaxMapAttempts(4);
+            job2.setNumReduceTasks(10);
             //job2运行结束后结束程序
             System.exit(job2.waitForCompletion(true) ? 0 : 1);
         }

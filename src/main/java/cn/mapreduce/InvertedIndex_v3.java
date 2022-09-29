@@ -29,7 +29,8 @@ public class InvertedIndex_v3 extends Configured implements Tool {
     @Override
     public int run(String[] args) throws Exception {
         //job1的配置
-        args = new String[]{"/hxh/bit/input","/hxh/bit/output", "/hxh/bit/finaloutput"};
+//        args = new String[]{"/hxh/bit/input","/hxh/bit/output", "/hxh/bit/finaloutput"};
+        args = new String[]{"/hxh/bit/inputtest","/hxh/bit/outputtest", "/hxh/bit/finaloutputtest"};
         Job job1 = Job.getInstance(getConf(), "Job1");
         job1.setJarByClass(InvertedIndex_v3.class);
         //-job1的Mapper、Combiner、Reducer
@@ -50,6 +51,7 @@ public class InvertedIndex_v3 extends Configured implements Tool {
             fs.delete(new Path(args[1]), true);
         }
         job1.setMaxMapAttempts(4);
+        job1.setNumReduceTasks(10);
 
         /*
          * job1的输出路径是job2的输入路径
@@ -77,6 +79,7 @@ public class InvertedIndex_v3 extends Configured implements Tool {
                 fs.delete(new Path(args[2]), true);
             }
             job2.setMaxMapAttempts(4);
+            job2.setNumReduceTasks(10);
             //job2运行结束后结束程序
 //            System.exit(job2.waitForCompletion(true) ? 0 : 1);
             TableMapReduceUtil.initTableReducerJob("invertedindex", Reduce_v2.class, job2);

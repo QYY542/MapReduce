@@ -23,6 +23,7 @@ public class Reduce_v2 extends TableReducer<Text, Text, ImmutableBytesWritable> 
             String[] splits = value.toString().split(":");
             total_count += Long.parseLong(splits[1]);
             sub.append(value).append(";");
+
         }
         word.set(key);
         index.set(sub.toString());
