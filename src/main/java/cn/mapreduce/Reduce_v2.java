@@ -3,11 +3,8 @@ package cn.mapreduce;
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.io.ImmutableBytesWritable;
 import org.apache.hadoop.hbase.mapreduce.TableReducer;
-import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapreduce.Reducer;
 
-import java.nio.charset.StandardCharsets;
 
 public class Reduce_v2 extends TableReducer<Text, Text, ImmutableBytesWritable> {
     private static StringBuilder sub = new StringBuilder();
