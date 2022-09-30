@@ -19,12 +19,12 @@ import org.apache.hadoop.util.ToolRunner;
  * 需要在pom.xml里修改主类
  */
 
-public class InvertedIndex extends Configured implements Tool {
+public class JobAll extends Configured implements Tool {
     public static void main(String[] args) throws Exception {
         Configuration conf = new Configuration();
         conf.set("hbase.zookeeper.quorum", "node1,node2,node3");
         new HbaseUtils(conf).createTable("invertedindex");
-        int status = ToolRunner.run(conf, new InvertedIndex(), args);
+        int status = ToolRunner.run(conf, new JobAll(), args);
         System.exit(status);
     }
 
@@ -33,7 +33,7 @@ public class InvertedIndex extends Configured implements Tool {
         //job1的配置
         args = new String[]{"/hxh/bit/input","/hxh/bit/output", "/hxh/bit/finaloutput"};
         Job job1 = Job.getInstance(getConf(), "Job1");
-        job1.setJarByClass(InvertedIndex.class);
+        job1.setJarByClass(JobAll.class);
         //-job1的Mapper、Combiner、Reducer
         job1.setMapperClass(Map_v1.class);
         job1.setCombinerClass(Combine_v1.class);
@@ -63,7 +63,7 @@ public class InvertedIndex extends Configured implements Tool {
         if (job1.waitForCompletion(true)) {
             //job2的配置
             Job job2 = Job.getInstance(getConf(), "Job2");
-            job2.setJarByClass(InvertedIndex.class);
+            job2.setJarByClass(JobAll.class);
             //-job2的Mapper、Reducer
             job2.setMapperClass(Map_v2.class);
             job2.setReducerClass(Reduce_v2.class);

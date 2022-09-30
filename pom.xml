@@ -80,7 +80,7 @@
     </dependencies>
 
     <build>
-        <finalName>invertedindex</finalName>
+        <finalName>invertedindex2</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -91,7 +91,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib</classpathPrefix>
-                            <mainClass>cn.mapreduce.InvertedIndex</mainClass>
+                            <mainClass>cn.mapreduce.SingleJobTwo</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
