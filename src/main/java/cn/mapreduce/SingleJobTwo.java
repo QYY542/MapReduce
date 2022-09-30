@@ -18,7 +18,7 @@ public class SingleJobTwo extends Configured implements Tool {
     public static void main(String[] args) throws Exception {
         Configuration conf = new Configuration();
         conf.set("hbase.zookeeper.quorum", "node1,node2,node3");
-        new HbaseUtils(conf).createTable("invertedindex");
+        new HbaseUtils(conf).createTable("Inv");
         int status = ToolRunner.run(conf, new JobAll(), args);
         System.exit(status);
     }
@@ -46,8 +46,8 @@ public class SingleJobTwo extends Configured implements Tool {
             fs.delete(new Path(args[1]), true);
         }
         job2.setMaxMapAttempts(4);
-        job2.setNumReduceTasks(10);
-        TableMapReduceUtil.initTableReducerJob("invertedindex", Reduce_v2.class, job2);
+        job2.setNumReduceTasks(30);
+        TableMapReduceUtil.initTableReducerJob("Inv", Reduce_v2.class, job2);
         return job2.waitForCompletion(true) ? 0 : 1;
 
     }

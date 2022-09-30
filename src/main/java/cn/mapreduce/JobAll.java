@@ -23,7 +23,7 @@ public class JobAll extends Configured implements Tool {
     public static void main(String[] args) throws Exception {
         Configuration conf = new Configuration();
         conf.set("hbase.zookeeper.quorum", "node1,node2,node3");
-        new HbaseUtils(conf).createTable("invertedindex");
+        new HbaseUtils(conf).createTable("Inv");
         int status = ToolRunner.run(conf, new JobAll(), args);
         System.exit(status);
     }
@@ -52,7 +52,7 @@ public class JobAll extends Configured implements Tool {
             fs.delete(new Path(args[1]), true);
         }
         job1.setMaxMapAttempts(4);
-        job1.setNumReduceTasks(10);
+        job1.setNumReduceTasks(30);
 
         /*
          * job1的输出路径是job2的输入路径
@@ -80,10 +80,10 @@ public class JobAll extends Configured implements Tool {
                 fs.delete(new Path(args[2]), true);
             }
             job2.setMaxMapAttempts(4);
-            job2.setNumReduceTasks(10);
+            job2.setNumReduceTasks(30);
             //job2运行结束后结束程序
 //            System.exit(job2.waitForCompletion(true) ? 0 : 1);
-            TableMapReduceUtil.initTableReducerJob("invertedindex", Reduce_v2.class, job2);
+            TableMapReduceUtil.initTableReducerJob("Inv", Reduce_v2.class, job2);
             return job2.waitForCompletion(true) ? 0 : 1;
         }
 
